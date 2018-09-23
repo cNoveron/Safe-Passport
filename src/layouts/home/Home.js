@@ -3,17 +3,50 @@ import { AccountData, ContractData, ContractForm } from 'drizzle-react-component
 import logo from '../../logo.png'
 
 const uportConnect = require('uport-connect');
+const appName = 'Secure Passport';
+const uriHandler = (uri) => {
+  //qrcode.generate(uri, {small: true})
+  console.log(uri)
+}
+const mnidAddress = 'CLIENT_ID';
+const signingKey = 'SIGNING_KEY';
+const uport = new uportConnect.Connect(
+  appName, {
+  uriHandler,
+  clientId: mnidAddress,
+  network: 'rinkeby',
+  signer: uportConnect.SimpleSigner(signingKey)
+});
 
 class Home extends Component {
+
+  componentDidMount(){
+    uport.requestCredentials({
+      requested: ['name', 'avatar', 'phone', 'country'],
+      }).then((userProfile) => {
+        console.log('success')
+    })
+  }
+
   render() {
     return (
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1 header">
             <img src={logo} alt="drizzle-logo" />
-            <h1>Drizzle Examples</h1>
-            <p>Examples of how to get started with Drizzle in various situations.</p>
-
+            <h1>Secure Passport</h1>
+            <h2>¿Algún refugiado ha solicitado tu apoyo?</h2>
+            <h2>
+              ¡Testifica por él! 
+              Por medio de esta aplicación puedes dar fe de que has tenido contacto con él. 
+              Ésta información es súmamente importante para su familia y sus seres queridos. 
+              Reporta su estado de salúd, las pertenencias que lleva consigo, sus acompañantes, 
+              y un mensaje que desée hacer llegar a su familia. Opcionalmente puedes dar tu propio 
+              testimonio, dar a conocer su localización aproximada o su destino. Pedimos no dar 
+              información que revele la identidad del refugiado. Se pide obligatoriamente 
+              un pseudónimo y medios por los cuales contactar a su familia sólo en caso de emergencia.
+              Tu ayuda puede salvar su vida.
+            </h2>
             <br/><br/>
           </div>
 
