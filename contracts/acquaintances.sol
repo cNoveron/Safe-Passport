@@ -8,7 +8,13 @@ contract acquaintance {
         use_address_to_nickname_to = address_to_nickname(where_address_to_nickname_lives);
     }
 
-    mapping (acquaintance_pair => bool) effectivity_of_acquaintance_from_address_pair;
+    mapping (address => address) they_know_me;
+    // 1 of many to =1 of 2
+
+    mapping (address => address) I_know_them;
+    // 1 of many to =1 of 2
+
+    mapping (string => bool) effectivity_of_acquaintance_from_address_pair_index;
     // 1 of many to =1 of 2
     
     struct address_pair{
@@ -16,11 +22,9 @@ contract acquaintance {
         address to_person;
     }
 
-    function accept_acquaintance(address_pair from_them_to_me) {
-        require(from_them_to_me.to_person == msg.sender);
-        effectivity_of_acquaintance_from_address_pair[from_them_to_me] = true;
-        address_pair from_me_to_them = address_pair(from_them_to_me.to_person, from_them_to_me.from_person);
-        effectivity_of_acquaintance_from_address_pair[from_me_to_them] = true;
+    function accept_acquaintance(address their_address) public {
+        they_know_me[their_address] = msg.sender
+        I_know_them[their_address] = msg.sender;
     }
 
     function request_acquaintance(address requester) 
@@ -33,12 +37,10 @@ contract acquaintance {
     );
 
     function confirm_whether_they_know_me_or_not(address_pair from_them_to_me) {
-        require(from_them_to_me.to_person == msg.sender);
-        return effectivity_of_acquaintance_from_address_pair[from_them_to_me];
+        return they_know_me[their_address] == msg.sender;
     }
 
     function confirm_whether_I_know_them_or_not(address_pair from_me_to_them) {
-        require(from_me_to_them.from_person == msg.sender);
-        return effectivity_of_acquaintance_from_address_pair[from_me_to_them];
+        return I_know_them[their_address] == msg.sender;
     }
 }
