@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
 import logo from '../../logo.png'
-import uport-connect from 'uport-connect'
+
+const uportConnect = require('uport-connect');
 
 class Home extends Component {
   render() {
