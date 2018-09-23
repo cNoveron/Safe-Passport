@@ -1,6 +1,12 @@
 pragma solidity ^0.4.0;
 
+import "./acquaintances.sol";
+
 contract address_to_Identity {
+    constructor(address where_acquaintances_live) {
+        acquaintances 
+        use_acquaintances_to = acquaintances(where_acquaintances_live);
+    }
 
     struct Identity{
         string names;
@@ -11,13 +17,13 @@ contract address_to_Identity {
     }
 
     mapping (address => string) Identity_from_address;
-    // 1 of many to n>=1 of many
+    // 1 of many to =1 of many possible
 
     mapping (string => address) address_from_Identity;
     // 1 of many to =1 of many
     
-    modifier knowsThePeer(address_of_a_peer) {
-        require(IKnowThePeer[address_of_a_peer]);
+    modifier to_know_the_peer(address_of_a_peer) {
+        require(use_acquaintances_to.confirm_whether_they_know_me_or_not(address_of_a_peer));
         _;
     }
 
@@ -27,7 +33,7 @@ contract address_to_Identity {
     }
     
     function map_address_to_Identity(address address_of_a_peer, string Identity) 
-    public IKnowThePeer(address_of_a_peer) {
+    public I_know_the_peer(address_of_a_peer) {
         Identity_from_address[address_of_a_peer] = Identity;
         address_from_Identity[Identity] = address_of_a_peer;
     }
