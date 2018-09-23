@@ -10,9 +10,11 @@ contract address_to_Pattern {
     
     function map_sender_address_to_Pattern(uint Pattern) public {
         Pattern_from_address[msg.sender] = Pattern;
+        address_from_Pattern[Pattern] = msg.sender;
     }
     
     function map_address_to_Pattern(address address_of_third_party, uint Pattern) public {
         Pattern_from_address[address_of_third_party] = Pattern;
+        address_from_Pattern[Pattern] = address_of_third_party;
     }
 }
