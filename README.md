@@ -1,0 +1,1 @@
+DApp diseñada para empoderar al migrante con identidad, comunicación y banca independiente.
