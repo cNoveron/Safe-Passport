@@ -14,9 +14,6 @@ contract acquaintance {
     mapping (address => address) I_know_them;
     // 1 of many to =1 of 2
 
-    mapping (string => bool) effectivity_of_acquaintance_from_address_pair_index;
-    // 1 of many to =1 of 2
-    
     struct address_pair{
         address from_person;
         address to_person;
